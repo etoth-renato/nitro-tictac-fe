@@ -1,0 +1,30 @@
+<h2>Your move: {{playerTurn()}}</h2>
+<table>
+  <tr *ngFor="let row of createRange(3); index as x;">
+    <td *ngFor="let col of createRange(3); index as y;">
+      <button [disabled]="findField(x,y) || (gameResult && gameResult.gameOver)" (click)="move(x,y)" class="field">
+        <span *ngIf="board">{{findField(x, y)}}</span>
+      </button>
+    </td>
+  </tr>
+
+</table>
+<button (click)="newGame()">New Game</button>
+
+<h1>
+  <span
+    *ngIf="gameResult && gameResult.gameOver && gameResult.winner != side.TIE ">The winner is: {{gameResult.winner}}</span>
+  <span
+    *ngIf="gameResult && gameResult.gameOver && gameResult.winner == side.TIE ">Game End! Do you want to retry?</span>
+</h1>
+
+<p>Scoreboard:</p>
+
+<table>
+  <tr *ngFor="let score of scoreboard">
+    <td>{{score.side}}</td>
+    <td *ngIf="score.side == side.X"><span>{{score.score}}</span></td>
+    <td *ngIf="score.side == side.O"><span>{{score.score}}</span></td>
+    <td *ngIf="score.side == side.TIE"><span>{{score.score}}</span></td>
+  </tr>
+</table>
